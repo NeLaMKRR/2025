@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>arXiv Submission Guide - NeLaMKRR 2025</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Google analytics (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2B6Y0BV9D5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-2B6Y0BV9D5');
+    </script>
+    <style>
+        .highlight-number {
+            font-weight: bold;
+            color: #d9534f;
+        }
+    </style>
+    <script>
+        const papers = [
+            {
+                title: "Argumentative Reasoning with Language Models on Non-factorized Case Bases",
+                authors: "Wachara Fungwacharakorn, May Myo Zin, Ha-Thanh Nguyen, Yuntao Kong, Ken Satoh",
+                report: "NeLaMKRR/2025/01"
+            },
+            {
+                title: "Specific Domain Ontology Construction Using Large Language Models",
+                authors: "Vivian Magri Alcaldi Soares, Renata Wassermann",
+                report: "NeLaMKRR/2025/02"
+            },
+            {
+                title: "Towards a Common Framework for Autoformalization",
+                authors: "Agnieszka Mensfelt, David Tena Cucala, Santiago Franco, Angeliki Koutsoukou-Argyraki, Vince Trencsenyi, Kostas Stathis",
+                report: "NeLaMKRR/2025/03"
+            },
+            {
+                title: "Multi-Agent Legal Verifier Systems for Data Transfer Planning",
+                authors: "Ha-Thanh Nguyen, Wachara Fungwacharakorn, Ken Satoh",
+                report: "NeLaMKRR/2025/04"
+            },
+            {
+                title: "HA-GNN: Learning Acyclic Hierarchies in Scientific Text with Hierarchy-Aware Graph Neural Networks",
+                authors: "Devvrat Joshi, Islem Rekik",
+                report: "NeLaMKRR/2025/05"
+            },
+            {
+                title: "Which Neurons Nudge Moral Judgments? Neuron-Level Last-Token Steering in Large Language Models",
+                authors: "Davide Liga, Liuwen Yu, Réka Markovich",
+                report: "NeLaMKRR/2025/06"
+            },
+            {
+                title: "Applying Relation Extraction and Graph Matching to Answering Multiple Choice Questions",
+                authors: "Naoki Shimoda, Akihiro Yamamoto",
+                report: "NeLaMKRR/2025/07"
+            },
+            {
+                title: "FC-CONAN: An Exhaustively Paired Dataset for Robust Evaluation of Retrieval Systems",
+                authors: "Juan Junqueras, Florian Boudin, May Myo Zin, Ha-Thanh Nguyen, Wachara Fungwacharakorn, Damián Ariel Furman, Akiko Aizawa, Ken Satoh",
+                report: "NeLaMKRR/2025/08"
+            },
+            {
+                title: "On the Role of Domain Experts in LLM-based Knowledge Formalization",
+                authors: "Simon Vandevelde",
+                report: "NeLaMKRR/2025/09"
+            },
+            {
+                title: "From Data Logs to Narrative Intelligence: Integrating ASP Logic and LLMs for Multi-robot Mission",
+                authors: "Shanmugaraj Madasamy, Karl Sammut, Richard Leibbrandt, Paulo Santos, Cedric Buche, Vincent Martin, Anne Gwenn Bosser",
+                report: "NeLaMKRR/2025/10"
+            }
+        ];
+
+        function computeSimilarity(a, b) {
+            let matches = 0;
+            const wordsA = a.split(' ');
+            const wordsB = b.split(' ');
+            for (let word of wordsA) {
+                if (wordsB.includes(word)) matches++;
+            }
+            return matches / Math.max(wordsA.length, wordsB.length);
+        }
+
+        function findMostSimilarPaper(input) {
+            let bestMatch = null;
+            let bestSimilarity = 0;
+            for (let paper of papers) {
+                const similarity = computeSimilarity(paper.title.toLowerCase(), input.toLowerCase());
+                if (similarity > bestSimilarity) {
+                    bestSimilarity = similarity;
+                    bestMatch = paper;
+                }
+            }
+            return bestMatch;
+        }
+
+        function searchPaper() {
+            const inputField = document.getElementById('paperTitle');
+            const resultDiv = document.getElementById('result');
+            const input = inputField.value.trim();
+
+            if (input.length === 0) {
+                resultDiv.innerHTML = "<strong>Please enter a paper title to search.</strong>";
+                return;
+            }
+
+            const match = findMostSimilarPaper(input);
+            if (match) {
+                resultDiv.innerHTML = `
+                    <p><strong>Title:</strong> ${match.title}</p>
+                    <p><strong>Authors:</strong> ${match.authors}</p>
+                    <p><strong>Report Number:</strong> ${match.report}</p>
+                `;
+            } else {
+                resultDiv.innerHTML = "<strong>No similar papers found.</strong>";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="https://jurisinformaticscenter.github.io/NeLaMKRR2025/">NeLaMKRR 2025</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#workshop-info">Workshop Info</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#submission-guide">Submission Guide</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#important-note">Important Note</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-5">arXiv Submission Guide for NeLaMKRR 2025</h1>
+            <p class="lead">Follow these steps to properly submit your paper to arXiv for inclusion in the NeLaMKRR 2025 proceedings.</p>
+        </div>
+    </section>
+
+    <!-- Workshop Information Section -->
+    <section class="container mt-4" id="workshop-info">
+        <h2>NeLaMKRR 2025 Workshop Information</h2>
+        <p>The Second International Workshop on Next-Generation Language Models for Knowledge Representation and Reasoning (NeLaMKRR 2025) is associated with the 22nd International Conference on Principles of Knowledge Representation and Reasoning (<a href='https://kr.org/KR2025/' target='_blank'>KR 2025</a>). It aims to bring together researchers and practitioners to discuss novel techniques and innovative ideas at the intersection of language models, knowledge representation, and reasoning. The workshop will take place on November 12, 2025, in Melbourne, Australia.</p>
+        <p>Proceedings of the workshop will be hosted on arXiv to support open research and give authors full control over the licensing of their work.</p>
+    </section>
+
+    <!-- Guide Section -->
+    <section class="container mt-4" id="submission-guide">
+        <h2>Submission Guide</h2>
+        <ol>
+            <li><strong>Check arXiv Listing:</strong>
+                <p>Visit <a href="https://arxiv.org/html/2511.09575/" target="_blank">this URL</a> to locate your specific report number. You can double-check the result with the tool below:</p>
+                
+                <!-- Paper Search Section -->
+                <div class="mt-3">
+                    <input type="text" id="paperTitle" class="form-control" placeholder="Enter your paper title">
+                    <button onclick="searchPaper()" class="btn btn-primary mt-2">Search</button>
+                    <div id="result" class="mt-3"></div>
+                </div>
+            </li>
+            <li><strong>Choose a License:</strong>
+                <p>During the submission process, select a license for your work. You have full discretion over this choice, which could be a Creative Commons license or arXiv's standard license. NeLaMKRR does not influence this decision.</p>
+            </li>
+            <li><strong>Metadata Input:</strong>
+		    <ul>
+			<li><strong>Comments Field:</strong> 
+			    <p>In the Comments field, please include the following text:</p>
+			    <pre>Comments: Presented at NeLaMKRR@KR, 2025 (arXiv:2511.09575)</pre>
+			</li>
+			<li><strong>Report Number Field:</strong>
+			    <p>In the Report-no field, enter your specific report number, e.g., <code>NeLaMKRR/2025/02</code>.</p>
+			</li>
+		    </ul>
+		    <p>Example complete entry for referencing:</p>
+			<div class="card">
+			  <div class="card-body">
+				Comments: Presented at NeLaMKRR@KR, 2025 (arXiv:2511.09575)<br/>
+				Report-no: YOUR_REPORT_NUMBER (e.g., NeLaMKRR/2025/02)
+			  </div>
+			</div>
+
+	    </li>
+        </ol>
+		<p><i>&emsp;&emsp;An example of a submitted paper can be seen on arXiv <a href="https://arxiv.org/abs/2511.10925" target="_blank">here</a>.</i></p>
+    </section>
+
+    <!-- Important Note Section -->
+    <section class="container mt-4" id="important-note">
+        <div class="alert alert-warning" role="alert">
+            <h4 class="alert-heading">Important Note</h4>
+            <p>You can submit your paper to arXiv at any time. However, please be aware that a post-review process will be conducted. If your paper is not presented at the workshop, or if there are other significant issues, it may be removed from the proceedings. Thank you for your understanding and cooperation.</p>
+        </div>
+    </section>
+
+    
+
+    <footer class="bg-dark text-center py-3">
+        <p class="text-white">&copy;2025 NeLaMKRR. All rights reserved.</p>
+        <a class="text-white" href="https://jurisinformaticscenter.github.io/NeLaMKRR2025/">NeLaMKRR 2025 home page</a>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- Bootstrap JS (v4.5.2) dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
